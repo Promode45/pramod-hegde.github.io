@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pramod Hegde — Environmental Data Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F6F3;
+      --surface: #FFFFFF;
+      --ink: #1A1A18;
+      --muted: #7A7A72;
+      --accent: #3D6B4F;
+      --accent-light: #EAF2EC;
+      --rule: #E2E0DA;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 4rem;
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.01em;
+    }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a {
+      font-size: 0.82rem; text-decoration: none; color: var(--muted);
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 75% 40%, #D5E8DC 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, #E8E4D8 0%, transparent 60%),
+        var(--bg);
+    }
+    /* Subtle topographic lines */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(61,107,79,0.06) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(61,107,79,0.04) 40px);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+    .hero-eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+    }
+    h1 {
+      font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.2rem);
+      line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 1.6rem;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); max-width: 500px;
+      line-height: 1.75; margin-bottom: 2.4rem;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      background: var(--accent); color: #fff;
+      text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover { background: #2d5238; transform: translateY(-1px); }
+    .hero-cta svg { width: 14px; height: 14px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; }
+    section:nth-child(even) { background: var(--surface); }
+
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.6rem;
+    }
+    h2 {
+      font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.15; margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .about-text p strong { color: var(--ink); font-weight: 500; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .stat {
+      padding: 1.6rem; border: 1px solid var(--rule);
+      background: var(--accent-light);
+    }
+    .stat-number {
+      font-family: var(--serif); font-size: 2.4rem; color: var(--accent);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── SKILLS ── */
+    .skills-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3rem; }
+    .skill-tag {
+      padding: 0.4rem 1rem; border: 1px solid var(--rule);
+      font-size: 0.82rem; color: var(--muted); font-weight: 400;
+      background: var(--bg); transition: all 0.2s;
+    }
+    .skill-tag.highlight {
+      border-color: var(--accent); color: var(--accent); background: var(--accent-light);
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .project-card {
+      background: var(--bg); border: 1px solid var(--rule);
+      overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0; transform: translateY(24px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .project-card:nth-child(2) { animation-delay: 0.12s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .project-img {
+      width: 100%; aspect-ratio: 16/9; overflow: hidden;
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .project-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-img .placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      color: var(--accent); opacity: 0.6; font-size: 0.82rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .project-img .placeholder svg { width: 40px; height: 40px; stroke-width: 1; }
+    .project-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--accent); color: #fff;
+      font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; font-weight: 500;
+    }
+    .project-body { padding: 1.8rem; }
+    .project-title {
+      font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.7rem; line-height: 1.25;
+    }
+    .project-desc { font-size: 0.93rem; color: var(--muted); margin-bottom: 1.4rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+    .project-tag {
+      font-size: 0.74rem; padding: 0.2rem 0.65rem;
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid rgba(61,107,79,0.2);
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; color: var(--accent); text-decoration: none;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+      border-bottom: 1px solid var(--accent); padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+    .project-link:hover { opacity: 0.7; }
+
+    /* ── HOW IT WORKS ── */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .step-num {
+      font-family: var(--serif); font-size: 3rem; color: var(--accent);
+      opacity: 0.25; line-height: 1; margin-bottom: 1rem;
+    }
+    .step h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.6rem; }
+    .step p { font-size: 0.92rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-inner {
+      max-width: 600px;
+    }
+    .contact-inner p { color: var(--muted); margin-bottom: 2rem; font-size: 1.02rem; }
+    .contact-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.4rem; border: 1px solid var(--rule);
+      font-size: 0.82rem; text-decoration: none; color: var(--ink);
+      font-weight: 500; letter-spacing: 0.04em;
+      transition: all 0.2s; background: var(--surface);
+    }
+    .contact-link:hover {
+      border-color: var(--accent); color: var(--accent); background: var(--accent-light);
+    }
+    .contact-link svg { width: 15px; height: 15px; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+    }
+
+    /* ── DIVIDER ── */
+    .rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 0 1.5rem 5rem; }
+      .about-grid, .projects-grid, .steps { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    /* ── PAGE LOAD ANIMATION ── */
+    .hero-content > * {
+      opacity: 0; animation: fadeUp 0.7s ease forwards;
+    }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    h1 { animation-delay: 0.22s; }
+    .hero-sub { animation-delay: 0.34s; }
+    .hero-cta { animation-delay: 0.46s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Pramod Hegde</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Google Earth Engine · Remote Sensing · Soil Science</div>
+    <h1>Mapping the earth,<br><em>one dataset</em> at a time.</h1>
+    <p class="hero-sub">
+      Environmental scientist and agricultural engineer using satellite imagery and geospatial tools to understand how soil, water, and vegetation interact across landscapes.
+    </p>
+    <a href="#projects" class="hero-cta">
+      View Projects
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 8h10M8 3l5 5-5 5"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Background</div>
+  <h2>Field scientist.<br>Data analyst. Problem solver.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm <strong>Pramod Hegde</strong>, an agricultural and environmental scientist with a dual M.S. from the University of Georgia and University of Padua, and a B.Tech in Agricultural Engineering from UAS Bangalore.
+      </p>
+      <p>
+        My work sits at the intersection of <strong>remote sensing, soil physics, and environmental data analysis</strong>. I use Google Earth Engine to process large-scale satellite datasets — combining that with ground-truth soil sampling and field monitoring to understand land-surface dynamics.
+      </p>
+      <p>
+        Currently working as Lab Manager at UGA's Soil Health Laboratory, where I oversee soil sampling programs, QA/QC protocols, and research on <strong>biochar applications and carbon cycling</strong> in agricultural systems.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-number">60+</div>
+        <div class="stat-label">Soil samples analyzed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">25</div>
+        <div class="stat-label">Experimental plots monitored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">1st</div>
+        <div class="stat-label">SSSA poster & oral award</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3.81</div>
+        <div class="stat-label">Graduate GPA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Google Earth Engine Work</div>
+  <h2>Featured Projects</h2>
+  <div class="projects-grid">
+
+    <!-- PROJECT 1: NDVI -->
+    <div class="project-card">
+      <div class="project-img">
+        <!-- REPLACE: swap src with your actual NDVI screenshot -->
+        <!-- <img src="ndvi_screenshot.png" alt="NDVI Analysis map"> -->
+        <div class="placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="18" height="18" rx="1"/>
+            <path d="M3 9h18M9 21V9"/>
+            <circle cx="15.5" cy="6" r="1.5" fill="currentColor"/>
+          </svg>
+          Add your NDVI screenshot here
+        </div>
+        <span class="project-badge">Vegetation Analysis</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">NDVI Time-Series Analysis</h3>
+        <p class="project-desc">
+          Multi-temporal vegetation index analysis using Sentinel-2 and Landsat imagery to track seasonal greenness patterns and identify anomalies in crop and ecosystem health across agricultural landscapes.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Sentinel-2</span>
+          <span class="project-tag">Landsat</span>
+          <span class="project-tag">NDVI</span>
+          <span class="project-tag">Time Series</span>
+          <span class="project-tag">JavaScript</span>
+        </div>
+        <!-- REPLACE: add your GEE script share link below -->
+        <a href="https://code.earthengine.google.com/" class="project-link" target="_blank">
+          View in GEE
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="M7 3H3v10h10V9M9 3h4v4M13 3L7 9"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Soil Moisture -->
+    <div class="project-card">
+      <div class="project-img">
+        <!-- REPLACE: swap src with your actual soil moisture screenshot -->
+        <!-- <img src="soil_moisture_screenshot.png" alt="Soil Moisture map"> -->
+        <div class="placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 2C6 9 4 13 4 16a8 8 0 0016 0c0-3-2-7-8-14z"/>
+            <path d="M8 18c0 2.2 1.8 4 4 4"/>
+          </svg>
+          Add your soil moisture screenshot here
+        </div>
+        <span class="project-badge">Soil Moisture</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Soil Moisture Mapping with SAR</h3>
+        <p class="project-desc">
+          Spatial mapping of surface soil moisture using Sentinel-1 SAR backscatter data, validated against field-measured soil water content from Hyprop and WP4C instruments across experimental plots in Georgia.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Sentinel-1</span>
+          <span class="project-tag">SAR</span>
+          <span class="project-tag">Soil Moisture</span>
+          <span class="project-tag">Field Validation</span>
+          <span class="project-tag">Python</span>
+        </div>
+        <!-- REPLACE: add your GEE script share link below -->
+        <a href="https://code.earthengine.google.com/" class="project-link" target="_blank">
+          View in GEE
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="M7 3H3v10h10V9M9 3h4v4M13 3L7 9"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section>
+  <div class="section-label">Workflow</div>
+  <h2>From satellite to soil.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Remote Sensing</h3>
+      <p>Processing multi-spectral and SAR imagery in Google Earth Engine to extract vegetation indices, land surface temperature, and moisture proxies at scale.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Field Validation</h3>
+      <p>Ground-truthing satellite-derived metrics with direct soil sampling, Hyprop/WP4C measurements, and CO₂ flux monitoring across experimental plots.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Analysis & Reporting</h3>
+      <p>Statistical modeling in R and Python, reproducible workflows, and clear technical reporting for scientific and stakeholder audiences.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Tools & Technologies</div>
+  <h2>Technical stack.</h2>
+  <div class="skills-row">
+    <span class="skill-tag highlight">Google Earth Engine</span>
+    <span class="skill-tag highlight">ArcGIS Pro</span>
+    <span class="skill-tag highlight">QGIS</span>
+    <span class="skill-tag highlight">Pix4D</span>
+    <span class="skill-tag">ArcGIS Online</span>
+    <span class="skill-tag">Remote Sensing</span>
+    <span class="skill-tag">Sentinel-1 / SAR</span>
+    <span class="skill-tag">Sentinel-2 / Landsat</span>
+  </div>
+  <div class="skills-row">
+    <span class="skill-tag highlight">Python (Pandas, NumPy, Matplotlib)</span>
+    <span class="skill-tag highlight">R</span>
+    <span class="skill-tag">geemap</span>
+    <span class="skill-tag">Statistical Modeling</span>
+    <span class="skill-tag">LaTeX</span>
+  </div>
+  <div class="skills-row">
+    <span class="skill-tag highlight">Soil Sampling & Analysis</span>
+    <span class="skill-tag highlight">Hyprop / WP4C</span>
+    <span class="skill-tag">CO₂ Flux Monitoring</span>
+    <span class="skill-tag">Eddy Covariance</span>
+    <span class="skill-tag">QA/QC & SOPs</span>
+    <span class="skill-tag">Lab Calibration</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get in Touch</div>
+    <h2>Let's connect.</h2>
+    <p>
+      Whether you're interested in collaborating on environmental monitoring projects, discussing GEE workflows, or exploring opportunities — I'd love to hear from you.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:hegde.pramod45@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 8l10 7 10-7"/>
+        </svg>
+        Email
+      </a>
+      <a href="https://linkedin.com/in/pramod-hegde45" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="3"/>
+          <path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Promode45" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Pramod Hegde</span>
+  <span>Environmental Data Scientist · Athens, GA</span>
+</footer>
+
+</body>
+</html>
